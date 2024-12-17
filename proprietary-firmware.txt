@@ -1,0 +1,16 @@
+fld.bin_SM-A256E
+harx.bin_SM-A256E
+keystorage.bin_SM-A256E
+ldfw.img_SM-A256E
+modem.bin_SM-A256E
+modem_debug.bin_SM-A256E
+sboot.bin_SM-A256E
+tzsw.img_SM-A256E
+tzar.img_SM-A256E
+uh.bin_SM-A256E
+up_param.bin_SM-A256E
+
+# File containing the supported models, one per line
+models
+# Files containing Samsung package version for supported models
+version_SM-A256E

@@ -1,5 +1,5 @@
-#
-# Copyright (C) 2021 The LineageOS Project
+
+# Copyright (C) 2020-2024 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,13 +14,42 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/samsung/a25x
-
 # Inherit from the common tree
-$(call inherit-product, device/samsung/universal8825-common/common.mk)
+$(call inherit-product, device/samsung/a25x-common/common.mk)
 
 # Inherit proprietary files
 $(call inherit-product, vendor/samsung/a25x/a25x-vendor.mk)
 
+# Setup dalvik vm configs
+$(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
+
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+
+# Permissions
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.xml
+
+# RIL
+PRODUCT_PACKAGES += \
+    android.hardware.radio@1.2.vendor:64 \
+    android.hardware.radio.config-V1-ndk.vendor:64 \
+    android.hardware.radio.data-V1-ndk.vendor:64 \
+    android.hardware.radio.messaging-V1-ndk.vendor:64 \
+    android.hardware.radio.modem-V1-ndk.vendor:64 \
+    android.hardware.radio.network-V1-ndk.vendor:64 \
+    android.hardware.radio.sim-V1-ndk.vendor:64 \
+    android.hardware.radio.voice-V1-ndk.vendor:64 \
+    libnetutils.vendor:64 \
+    libsqlite.vendor:64
+
+PRODUCT_PACKAGES += \
+    libdsms_vendor:64
+
+PRODUCT_PACKAGES += \
+    secril_config_svc \
+    sehradiomanager
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/ril/sehradiomanager.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sehradiomanager.conf
